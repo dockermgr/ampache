@@ -19,17 +19,17 @@ dockermgr update ampache
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/ampache/rootfs"
+mkdir -p "$HOME/.local/share/srv/docker/ampache/volumes"
 git clone "https://github.com/dockermgr/ampache" "$HOME/.local/share/CasjaysDev/dockermgr/ampache"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/ampache/rootfs/." "$HOME/.local/share/srv/docker/ampache/rootfs/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/ampache/volumes/." "$HOME/.local/share/srv/docker/ampache/volumes/"
 docker run -d \
 --restart always \
 --privileged \
 --name casjaysdevdocker-ampache \
 --hostname ampache \
 -e TZ=${TIMEZONE:-America/New_York} \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-ampache/rootfs/data:/data:z" \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-ampache/rootfs/config:/config:z" \
+-v "$HOME/.local/share/srv/docker/casjaysdevdocker-ampache/volumes/data:/data:z" \
+-v "$HOME/.local/share/srv/docker/casjaysdevdocker-ampache/volumes/config:/config:z" \
 -p 80:80 \
 casjaysdevdocker/ampache:latest
 ```
@@ -46,8 +46,8 @@ services:
       - TZ=America/New_York
       - HOSTNAME=ampache
     volumes:
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-ampache/rootfs/data:/data:z"
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-ampache/rootfs/config:/config:z"
+      - "$HOME/.local/share/srv/docker/casjaysdevdocker-ampache/volumes/data:/data:z"
+      - "$HOME/.local/share/srv/docker/casjaysdevdocker-ampache/volumes/config:/config:z"
     ports:
       - 80:80
     restart: always
